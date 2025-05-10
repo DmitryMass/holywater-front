@@ -555,7 +555,7 @@ const PropertyPanel = ({
               { value: '3', label: '3 колонки' },
               { value: '4', label: '4 колонки' },
             ]}
-            value={selectedSection.settings?.gridColumns || '2'}
+            value={String(selectedSection.settings?.gridColumns || '2')}
             onChange={(e) =>
               onSectionChange({
                 ...selectedSection,

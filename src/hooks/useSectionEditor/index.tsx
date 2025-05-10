@@ -101,7 +101,7 @@ export const useSectionEditor = ({
 
   // Вычисляем количество колонок для сетки
   const getGridColumns = (): string => {
-    return section.settings?.gridColumns || '2';
+    return String(section.settings?.gridColumns || '2');
   };
 
   return {

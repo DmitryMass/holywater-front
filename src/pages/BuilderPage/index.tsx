@@ -119,7 +119,7 @@ const BuilderPage = () => {
 
           {/* JSON превью */}
           <div className="w-full md:w-1/2">
-            <JsonPreview data={config} />
+            <JsonPreview data={config ? (config as unknown as Record<string, unknown>) : {}} />
           </div>
         </div>
       ) : (
@@ -246,7 +246,10 @@ const BuilderPage = () => {
                 className="mb-4"
               />
 
-              <JsonPreview data={config} className="mb-4" />
+              <JsonPreview
+                data={config ? (config as unknown as Record<string, unknown>) : {}}
+                className="mb-4"
+              />
             </div>
           </div>
         </div>
