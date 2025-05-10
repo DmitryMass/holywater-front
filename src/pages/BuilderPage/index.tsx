@@ -163,59 +163,54 @@ const BuilderPage = () => {
             <div
               className={`bg-base-100 min-h-[600px] rounded-lg p-4 lg:col-span-6 ${activeMobilePanel === 'editor' ? 'block' : 'hidden lg:block'}`}
             >
-              <h2 className="mb-4 text-xl font-bold">Редактор</h2>
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xl font-bold">Редактор</h2>
+                {loading && <div className="loading loading-spinner loading-sm text-primary"></div>}
+              </div>
 
-              {loading && (
-                <div className="flex justify-center py-8">
-                  <div className="loading loading-spinner text-primary"></div>
-                </div>
-              )}
-
-              {!loading && (
-                <DndContext
-                  sensors={sensors}
-                  collisionDetection={closestCenter}
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
-                  autoScroll={true}
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+                autoScroll={true}
+              >
+                <SortableContext
+                  items={config?.sections.map((s) => s.id) || []}
+                  strategy={verticalListSortingStrategy}
                 >
-                  <SortableContext
-                    items={config?.sections.map((s) => s.id) || []}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {config?.sections.map((section) => (
-                      <SectionEditor
-                        key={section.id}
-                        section={section}
-                        isSelected={section.id === selectedSectionId}
-                        onSectionChange={(updatedSection) =>
-                          updateSection(section.id, updatedSection)
+                  {config?.sections.map((section) => (
+                    <SectionEditor
+                      key={section.id}
+                      section={section}
+                      isSelected={section.id === selectedSectionId}
+                      onSectionChange={(updatedSection) =>
+                        updateSection(section.id, updatedSection)
+                      }
+                      onSectionDelete={() => deleteSection(section.id)}
+                      onSectionMove={(id, direction) => moveSection(id, direction)}
+                      onSectionSelect={(id) => {
+                        selectSection(id);
+                        // На мобильных переключаемся на свойства при выборе секции
+                        if (window.innerWidth < 1024) {
+                          setActiveMobilePanel('properties');
                         }
-                        onSectionDelete={() => deleteSection(section.id)}
-                        onSectionMove={(id, direction) => moveSection(id, direction)}
-                        onSectionSelect={(id) => {
-                          selectSection(id);
-                          // На мобильных переключаемся на свойства при выборе секции
-                          if (window.innerWidth < 1024) {
-                            setActiveMobilePanel('properties');
-                          }
-                        }}
-                        onItemSelect={(sectionId, itemId) => {
-                          selectItem(sectionId, itemId);
-                          // На мобильных переключаемся на свойства при выборе элемента
-                          if (window.innerWidth < 1024) {
-                            setActiveMobilePanel('properties');
-                          }
-                        }}
-                        selectedItemId={selectedItemId}
-                        onItemDelete={deleteItem}
-                      />
-                    ))}
-                  </SortableContext>
-                </DndContext>
-              )}
+                      }}
+                      onItemSelect={(sectionId, itemId) => {
+                        selectItem(sectionId, itemId);
+                        // На мобильных переключаемся на свойства при выборе элемента
+                        if (window.innerWidth < 1024) {
+                          setActiveMobilePanel('properties');
+                        }
+                      }}
+                      selectedItemId={selectedItemId}
+                      onItemDelete={deleteItem}
+                    />
+                  ))}
+                </SortableContext>
+              </DndContext>
 
-              {!loading && (!config || config.sections.length === 0) && (
+              {(!config || config.sections.length === 0) && (
                 <div className="border-base-300 flex flex-col items-center rounded-md border border-dashed p-8 text-center">
                   <p className="text-base-content mb-4">Додайте секції з палітри ліворуч</p>
                   <button

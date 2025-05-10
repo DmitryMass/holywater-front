@@ -88,7 +88,14 @@ const BuilderToolbar = ({
       {/* Десктопная версия кнопок */}
       <div className="hidden flex-wrap gap-2 xl:flex">
         <Button variant="primary" onClick={onSave} disabled={loading}>
-          {loading ? 'Збереження...' : 'Зберегти'}
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="loading loading-spinner loading-xs"></span>
+              Збереження
+            </span>
+          ) : (
+            'Зберегти'
+          )}
         </Button>
         <Button variant="outline" onClick={handleNewClick} disabled={loading}>
           Нова
@@ -138,7 +145,14 @@ const BuilderToolbar = ({
       {/* Мобильная версия с выпадающим меню */}
       <div className="flex gap-2 xl:hidden">
         <Button variant="primary" onClick={onSave} disabled={loading} size="sm">
-          {loading ? '...' : 'Зберегти'}
+          {loading ? (
+            <span className="flex items-center gap-1">
+              <span className="loading loading-spinner loading-xs"></span>
+              <span className="sr-only">Збереження</span>
+            </span>
+          ) : (
+            'Зберегти'
+          )}
         </Button>
         <Button variant="outline" onClick={toggleMobileMenu} title="Меню" size="sm">
           ☰

@@ -68,28 +68,12 @@ export const useCreateScreenConfig = () => {
       return response.data!;
     },
     onSuccess: (data) => {
-      // Обновляем кэш напрямую вместо инвалидации для предотвращения мигания
-      // Обновляем список всех конфигураций
-      queryClient.setQueryData(queryKeys.allScreenConfigs, (old: ScreenConfig[] | undefined) => {
-        if (!old) return [data];
-        return [...old, data];
-      });
-
-      // Добавляем новую конфигурацию в кэш
-      queryClient.setQueryData(queryKeys.screenConfig(data._id), data);
-
-      // Если новая конфигурация активна, обновляем активную конфигурацию
+      // Инвалидируем все запросы, чтобы обновить данные с сервера
+      queryClient.invalidateQueries({ queryKey: queryKeys.allScreenConfigs });
+      queryClient.invalidateQueries({ queryKey: queryKeys.screenConfig(data._id) });
       if (data.isActive) {
-        queryClient.setQueryData(queryKeys.activeScreenConfig, data);
+        queryClient.invalidateQueries({ queryKey: queryKeys.activeScreenConfig });
       }
-
-      // Откладываем инвалидацию, чтобы обновить данные после завершения всех операций UI
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: queryKeys.allScreenConfigs });
-        if (data.isActive) {
-          queryClient.invalidateQueries({ queryKey: queryKeys.activeScreenConfig });
-        }
-      }, 1500);
     },
     onError: (error: Error) => {
       toast.error(`Помилка при створенні конфігурації: ${error.message}`);
@@ -116,29 +100,12 @@ export const useUpdateScreenConfig = () => {
       return response.data!;
     },
     onSuccess: (data) => {
-      // Обновляем кэш напрямую вместо инвалидации для предотвращения мигания
-      // Обновляем данные конкретной конфигурации
-      queryClient.setQueryData(queryKeys.screenConfig(data._id), data);
-
-      // Обновляем список всех конфигураций
-      queryClient.setQueryData(queryKeys.allScreenConfigs, (old: ScreenConfig[] | undefined) => {
-        if (!old) return [data];
-        return old.map((config) => (config._id === data._id ? data : config));
-      });
-
-      // Если конфигурация активна, обновляем активную конфигурацию
+      // Инвалидируем все запросы, чтобы обновить данные с сервера
+      queryClient.invalidateQueries({ queryKey: queryKeys.allScreenConfigs });
+      queryClient.invalidateQueries({ queryKey: queryKeys.screenConfig(data._id) });
       if (data.isActive) {
-        queryClient.setQueryData(queryKeys.activeScreenConfig, data);
+        queryClient.invalidateQueries({ queryKey: queryKeys.activeScreenConfig });
       }
-
-      // Откладываем инвалидацию, чтобы обновить данные после завершения всех операций UI
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: queryKeys.allScreenConfigs });
-        queryClient.invalidateQueries({ queryKey: queryKeys.screenConfig(data._id) });
-        if (data.isActive) {
-          queryClient.invalidateQueries({ queryKey: queryKeys.activeScreenConfig });
-        }
-      }, 1500);
     },
     onError: (error: Error) => {
       toast.error(`Помилка при оновленні конфігурації: ${error.message}`);
@@ -161,15 +128,10 @@ export const useActivateScreenConfig = () => {
     onSuccess: (data) => {
       // Инвалидируем список всех конфигураций, так как изменился статус активности
       queryClient.invalidateQueries({ queryKey: queryKeys.allScreenConfigs });
-
       // Инвалидируем данные конкретной конфигурации
       queryClient.invalidateQueries({ queryKey: queryKeys.screenConfig(data._id) });
-
       // Инвалидируем активную конфигурацию
       queryClient.invalidateQueries({ queryKey: queryKeys.activeScreenConfig });
-
-      // Не показываем тост здесь, чтобы избежать дублирования
-      // Тост будет показан в useBuilderPage.handleActivateConfig
     },
     onError: (error: Error) => {
       toast.error(`Помилка при активації конфігурації: ${error.message}`);
@@ -192,15 +154,10 @@ export const useDeleteScreenConfig = () => {
     onSuccess: (id) => {
       // Инвалидируем список всех конфигураций
       queryClient.invalidateQueries({ queryKey: queryKeys.allScreenConfigs });
-
       // Удаляем данные конкретной конфигурации из кэша
       queryClient.removeQueries({ queryKey: queryKeys.screenConfig(id) });
-
       // Инвалидируем активную конфигурацию (на случай, если удалили активную)
       queryClient.invalidateQueries({ queryKey: queryKeys.activeScreenConfig });
-
-      // Не показываем тост здесь, чтобы избежать дублирования
-      // Тост будет показан в useBuilderPage.handleDeleteConfig
     },
     onError: (error: Error) => {
       toast.error(`Помилка при видаленні конфігурації: ${error.message}`);
