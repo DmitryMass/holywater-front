@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
     const errorMessage =
       error.response?.data?.error ||
       error.response?.data?.message ||
-      'Произошла ошибка при обращении к серверу';
+      'Сталася помилка при зверненні до сервера';
 
     // Показываем уведомление об ошибке, если это не отключено
     // Заголовок X-Skip-Toast-Error можно добавить, чтобы избежать дублирования тостов

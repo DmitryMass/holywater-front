@@ -18,7 +18,7 @@ export const useScreenConfigs = () => {
     queryFn: async () => {
       const response = await api.getScreenConfigs();
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось получить конфигурации экранов');
+        throw new Error(response.error || 'Не вдалося отримати конфігурації екранів');
       }
       return response.data || [];
     },
@@ -33,7 +33,7 @@ export const useScreenConfig = (id?: string) => {
       if (!id) return null;
       const response = await api.getScreenConfigById(id);
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось получить конфигурацию экрана');
+        throw new Error(response.error || 'Не вдалося отримати конфігурацію екрану');
       }
       return response.data || null;
     },
@@ -48,7 +48,7 @@ export const useActiveScreenConfig = () => {
     queryFn: async () => {
       const response = await api.getActiveScreenConfig();
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось получить активную конфигурацию экрана');
+        throw new Error(response.error || 'Не вдалося отримати активну конфігурацію екрану');
       }
       return response.data || null;
     },
@@ -63,7 +63,7 @@ export const useCreateScreenConfig = () => {
     mutationFn: async (data: Omit<ScreenConfig, '_id' | 'createdAt' | 'updatedAt'>) => {
       const response = await api.createScreenConfig(data);
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось создать конфигурацию экрана');
+        throw new Error(response.error || 'Не вдалося створити конфігурацію екрану');
       }
       return response.data!;
     },
@@ -92,7 +92,7 @@ export const useCreateScreenConfig = () => {
       }, 1500);
     },
     onError: (error: Error) => {
-      toast.error(`Ошибка при создании конфигурации: ${error.message}`);
+      toast.error(`Помилка при створенні конфігурації: ${error.message}`);
     },
   });
 };
@@ -111,7 +111,7 @@ export const useUpdateScreenConfig = () => {
     }) => {
       const response = await api.updateScreenConfig(id, data);
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось обновить конфигурацию экрана');
+        throw new Error(response.error || 'Не вдалося оновити конфігурацію екрану');
       }
       return response.data!;
     },
@@ -141,7 +141,7 @@ export const useUpdateScreenConfig = () => {
       }, 1500);
     },
     onError: (error: Error) => {
-      toast.error(`Ошибка при обновлении конфигурации: ${error.message}`);
+      toast.error(`Помилка при оновленні конфігурації: ${error.message}`);
     },
   });
 };
@@ -154,7 +154,7 @@ export const useActivateScreenConfig = () => {
     mutationFn: async (id: string) => {
       const response = await api.activateScreenConfig(id);
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось активировать конфигурацию экрана');
+        throw new Error(response.error || 'Не вдалося активувати конфігурацію екрану');
       }
       return response.data!;
     },
@@ -172,7 +172,7 @@ export const useActivateScreenConfig = () => {
       // Тост будет показан в useBuilderPage.handleActivateConfig
     },
     onError: (error: Error) => {
-      toast.error(`Ошибка при активации конфигурации: ${error.message}`);
+      toast.error(`Помилка при активації конфігурації: ${error.message}`);
     },
   });
 };
@@ -185,7 +185,7 @@ export const useDeleteScreenConfig = () => {
     mutationFn: async (id: string) => {
       const response = await api.deleteScreenConfig(id);
       if (!response.success) {
-        throw new Error(response.error || 'Не удалось удалить конфигурацию экрана');
+        throw new Error(response.error || 'Не вдалося видалити конфігурацію екрану');
       }
       return id;
     },
@@ -203,7 +203,7 @@ export const useDeleteScreenConfig = () => {
       // Тост будет показан в useBuilderPage.handleDeleteConfig
     },
     onError: (error: Error) => {
-      toast.error(`Ошибка при удалении конфигурации: ${error.message}`);
+      toast.error(`Помилка при видаленні конфігурації: ${error.message}`);
     },
   });
 };

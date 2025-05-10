@@ -21,7 +21,7 @@ const handleResponse = <T>(response: { data: ApiResponseData<T> }): ApiResponse<
   } else {
     return {
       success: false,
-      error: response.data.error || 'Неизвестная ошибка',
+      error: response.data.error || 'Невідома помилка',
     };
   }
 };
@@ -42,7 +42,7 @@ export const getScreenConfigs = async (): Promise<ApiResponse<ScreenConfig[]>> =
       pagination: response.data.data.pagination,
     };
   } catch {
-    return handleError<ScreenConfig[]>('Не удалось получить список конфигураций экранов');
+    return handleError<ScreenConfig[]>('Не вдалося отримати список конфігурацій екранів');
   }
 };
 
@@ -52,7 +52,7 @@ export const getActiveScreenConfig = async (): Promise<ApiResponse<ScreenConfig>
     const response = await axios.get('/screen');
     return handleResponse<ScreenConfig>(response);
   } catch {
-    return handleError<ScreenConfig>('Не удалось получить активную конфигурацию экрана');
+    return handleError<ScreenConfig>('Не вдалося отримати активну конфігурацію екрану');
   }
 };
 
@@ -62,7 +62,7 @@ export const getScreenConfigById = async (id: string): Promise<ApiResponse<Scree
     const response = await axios.get(`/screen-configs/${id}`);
     return handleResponse<ScreenConfig>(response);
   } catch {
-    return handleError<ScreenConfig>('Не удалось получить конфигурацию экрана');
+    return handleError<ScreenConfig>('Не вдалося отримати конфігурацію екрану');
   }
 };
 
@@ -74,7 +74,7 @@ export const createScreenConfig = async (
     const response = await axios.post('/screen-configs', data);
     return handleResponse<ScreenConfig>(response);
   } catch {
-    return handleError<ScreenConfig>('Не удалось создать конфигурацию экрана');
+    return handleError<ScreenConfig>('Не вдалося створити конфігурацію екрану');
   }
 };
 
@@ -87,7 +87,7 @@ export const updateScreenConfig = async (
     const response = await axios.put(`/screen-configs/${id}`, data);
     return handleResponse<ScreenConfig>(response);
   } catch {
-    return handleError<ScreenConfig>('Не удалось обновить конфигурацию экрана');
+    return handleError<ScreenConfig>('Не вдалося оновити конфігурацію екрану');
   }
 };
 
@@ -97,7 +97,7 @@ export const activateScreenConfig = async (id: string): Promise<ApiResponse<Scre
     const response = await axios.put(`/screen-configs/${id}/activate`);
     return handleResponse<ScreenConfig>(response);
   } catch {
-    return handleError<ScreenConfig>('Не удалось активировать конфигурацию экрана');
+    return handleError<ScreenConfig>('Не вдалося активувати конфігурацію екрану');
   }
 };
 
@@ -107,6 +107,6 @@ export const deleteScreenConfig = async (id: string): Promise<ApiResponse<null>>
     const response = await axios.delete(`/screen-configs/${id}`);
     return handleResponse<null>(response);
   } catch {
-    return handleError<null>('Не удалось удалить конфигурацию экрана');
+    return handleError<null>('Не вдалося видалити конфігурацію екрану');
   }
 };

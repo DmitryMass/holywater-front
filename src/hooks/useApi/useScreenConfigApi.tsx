@@ -51,7 +51,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
       setError(null);
       await refetchConfigs();
     } catch (err) {
-      setError('Ошибка при загрузке конфигураций');
+      setError('Помилка при завантаженні конфігурацій');
       console.error(err);
     }
   };
@@ -76,7 +76,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
       }
       return null;
     } catch (err) {
-      setError('Ошибка при загрузке конфигурации');
+      setError('Помилка при завантаженні конфігурації');
       console.error(err);
       return null;
     }
@@ -100,7 +100,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
       }
       return null;
     } catch (err) {
-      setError('Ошибка при загрузке активной конфигурации');
+      setError('Помилка при завантаженні активної конфігурації');
       console.error(err);
       return null;
     }
@@ -123,7 +123,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
       setCurrentConfig(adaptedConfig);
       return adaptedConfig;
     } catch (err) {
-      setError('Ошибка при создании конфигурации');
+      setError('Помилка при створенні конфігурації');
       console.error(err);
       return null;
     }
@@ -147,7 +147,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
       setCurrentConfig(adaptedConfig);
       return adaptedConfig;
     } catch (err) {
-      setError('Ошибка при обновлении конфигурации');
+      setError('Помилка при оновленні конфігурації');
       console.error(err);
       return null;
     }
@@ -165,7 +165,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
 
       return true;
     } catch (err) {
-      setError('Ошибка при удалении конфигурации');
+      setError('Помилка при видаленні конфігурації');
       console.error(err);
       return false;
     }
@@ -196,7 +196,7 @@ export const useScreenConfigApi = (): UseScreenConfigApiReturn => {
       }
       return false;
     } catch (err) {
-      setError('Ошибка при активации конфигурации');
+      setError('Помилка при активації конфігурації');
       console.error(err);
       return false;
     }
