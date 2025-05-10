@@ -11,6 +11,17 @@ export const tagStyles: Record<string, string> = {
   comedy: 'bg-accent',
 };
 
+// Предопределенные теги для My Drama-Web
+export const tagStylesMobile: Record<string, string> = {
+  new: 'bg-green-500',
+  exclusive: 'bg-purple-500',
+  popular: 'bg-blue-500',
+  trending: 'bg-orange-500',
+  hot: 'bg-red-500',
+  drama: 'bg-yellow-500',
+  comedy: 'bg-pink-500',
+};
+
 // Описания элементов
 export const itemTypeInfo: Record<ItemType, { title: string; description: string; icon: string }> =
   {

@@ -1,41 +1,15 @@
 import type { Item, ScreenConfig, Section } from '@/types';
+import { tagStylesMobile } from '@/utils/consts';
 import { cn } from '@utils/styles';
 
 import { useEffect } from 'react';
+
+import { TagsListMobile } from './TagsListMobile';
 
 interface MobilePreviewProps {
   config: ScreenConfig | null;
   deviceSize?: 'small' | 'medium' | 'large';
 }
-
-// Предопределенные теги для My Drama-Web
-const tagStyles: Record<string, string> = {
-  new: 'bg-green-500',
-  exclusive: 'bg-purple-500',
-  popular: 'bg-blue-500',
-  trending: 'bg-orange-500',
-  hot: 'bg-red-500',
-  drama: 'bg-yellow-500',
-  comedy: 'bg-pink-500',
-};
-
-// Компонент для отображения тегов
-const TagsList = ({ tags }: { tags?: string[] }) => {
-  if (!tags || tags.length === 0) return null;
-
-  return (
-    <div className="absolute top-2 left-2 z-20 flex flex-wrap gap-1.5">
-      {tags.map((tag) => (
-        <span
-          key={tag}
-          className={`${tagStyles[tag] || 'bg-gray-500'} rounded-sm px-2 py-0.5 text-xs text-white shadow-sm`}
-        >
-          {tag}
-        </span>
-      ))}
-    </div>
-  );
-};
 
 const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) => {
   useEffect(() => {
@@ -97,7 +71,7 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
                 <span className="text-base-content">Зображення</span>
               </div>
             )}
-            <TagsList tags={item.content.tags} />
+            <TagsListMobile tags={item.content.tags} />
             {item.content.title && (
               <div className="bg-base-300 bg-opacity-80 text-base-content absolute right-0 bottom-0 left-0 p-2">
                 <h4 className="text-sm font-bold">{item.content.title}</h4>
@@ -150,7 +124,7 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
                       <span className="text-base-content">Серіал</span>
                     </div>
                   )}
-                  <TagsList tags={item.content.tags} />
+                  <TagsListMobile tags={item.content.tags} />
                 </div>
                 <div className="flex flex-1 flex-col justify-between p-3">
                   <div>
@@ -208,7 +182,7 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
                       <span className="text-base-content">Серіал</span>
                     </div>
                   )}
-                  <TagsList tags={item.content.tags} />
+                  <TagsListMobile tags={item.content.tags} />
                 </div>
               </div>
             );
@@ -228,7 +202,7 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
                       <span className="text-base-content">Серіал</span>
                     </div>
                   )}
-                  <TagsList tags={item.content.tags} />
+                  <TagsListMobile tags={item.content.tags} />
                 </div>
                 <div className="bg-base-200 bg-opacity-80 absolute inset-0 flex flex-col justify-end p-3">
                   <h4 className="text-primary mb-1 text-sm font-bold">
@@ -261,7 +235,7 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
                         <span className="text-base-content">Серіал</span>
                       </div>
                     )}
-                    <TagsList tags={item.content.tags} />
+                    <TagsListMobile tags={item.content.tags} />
                   </div>
                 </div>
                 <div className="bg-base-200 rounded-b p-2">
@@ -435,7 +409,7 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
                           {item.content.tags.map((tag) => (
                             <span
                               key={tag}
-                              className={`${tagStyles[tag] || 'bg-gray-500'} rounded px-1 py-0.5 text-[10px] text-white`}
+                              className={`${tagStylesMobile[tag] || 'bg-gray-500'} rounded px-1 py-0.5 text-[10px] text-white`}
                             >
                               {tag}
                             </span>
