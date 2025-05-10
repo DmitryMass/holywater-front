@@ -1,0 +1,38 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+### React + TypeScript
+- Always use TypeScript with proper types and interfaces.
+- Use const instead of function where possible, e.g., const handleClick = () => {}.
+- Prefer useCallback and useMemo for memoization where necessary.
+- Write event handlers with the handle prefix: handleClick, handleSubmit, etc.
+- Structure logic in custom hooks only. Components should contain only the return statement (JSX).
+- Ensure proper component modularization — one concern per file.
+- Use early return patterns for better readability.
+- Never duplicate logic — abstract and reuse via hooks or utilities.
+- Store all global/shared types in the types/ folder.
+- Delete ununsed vars / imports / export / components / packages
+
+### TanStack Query
+- Use @tanstack/react-query for data fetching and caching.
+- Handle loading, error, and empty states explicitly.
+- Define reusable API clients/services outside of hooks/components.
+- Follow the query/mutation separation principle.
+- Store query cache keys in utils/queryKeys.ts
+
+### TailwindCSS + DaisyUI
+- Use Tailwind utility classes for styling — avoid writing raw CSS.
+- Use DaisyUI components for consistent, themed UI
+- Follow responsive and dark mode practices.
+- Use twMerge for mergin classes
+- Ensure accessible markup: aria-*, tabIndex, keyboard events, etc.
+
+### File & Folder Structure
+- Use kebab-case for folders: components/, hooks/, services/, types/, etc.
+- Use PascalCase for components and hooks: ProductCard.tsx, useFetchProducts.ts.
+- Form input button components only in /form folder.
+- UI into /ui \ - Layouts into layouts
+
+
