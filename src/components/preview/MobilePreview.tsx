@@ -357,8 +357,14 @@ const MobilePreview = ({ config, deviceSize = 'medium' }: MobilePreviewProps) =>
     let sectionContent;
     switch (section.type) {
       case 'banner':
-        // Обычно баннер содержит только один элемент
-        sectionContent = section.items.length > 0 && renderItem(section.items[0]);
+        // Баннер должен отображать все элементы, а не только первый
+        sectionContent = (
+          <div className="flex flex-col gap-3">
+            {section.items.map((item) => (
+              <div key={item.id}>{renderItem(item)}</div>
+            ))}
+          </div>
+        );
         break;
 
       case 'horizontalList':
